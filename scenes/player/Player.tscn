@@ -1,0 +1,156 @@
+[gd_scene format=3 uid="uid://dbcqeo103wau6"]
+
+[ext_resource type="Script" uid="uid://bqta7emfadpxj" path="res://scenes/player/player.gd" id="1_wr5hl"]
+[ext_resource type="Texture2D" uid="uid://pxj3b3e28fg3" path="res://addons/tube/inspector/icons/clipboard_icon.tres" id="2_gfjak"]
+[ext_resource type="AudioStream" uid="uid://cdov6nnydfvny" path="res://assets/sound/click.mp3" id="3_524rm"]
+[ext_resource type="AudioStream" uid="uid://d0xrt28ytpro" path="res://assets/sound/ping.mp3" id="4_tpg5x"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o8nba"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wr5hl"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gfjak"]
+top_radius = 0.3
+bottom_radius = 0.1
+height = 1.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wr5hl"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Head:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Nameplate:text")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfjak"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Player" type="CharacterBody3D" unique_id=1582534974]
+collision_layer = 9
+script = ExtResource("1_wr5hl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1789704607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_o8nba")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2062670380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_wr5hl")
+
+[node name="Head" type="Node3D" parent="." unique_id=2071305103]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head" unique_id=659649992]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.4010596, -0.38197786)
+mesh = SubResource("CylinderMesh_gfjak")
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=2014816838]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=447432846]
+replication_config = SubResource("SceneReplicationConfig_wr5hl")
+
+[node name="Nameplate" type="Label3D" parent="." unique_id=2093794407]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4974716, 0)
+billboard = 2
+fixed_size = true
+text = "Peer ID"
+font_size = 24
+outline_size = 8
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1190293794]
+unique_name_in_owner = true
+
+[node name="Menu" type="Control" parent="CanvasLayer" unique_id=68847478]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Menu" unique_id=28982625]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Menu/PanelContainer" unique_id=763618636]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu/PanelContainer/MarginContainer" unique_id=1136748676]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Menu/PanelContainer/MarginContainer/VBoxContainer" unique_id=1932282086]
+layout_mode = 2
+
+[node name="LabelSession" type="Label" parent="CanvasLayer/Menu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=536262590]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ButtonCopySession" type="Button" parent="CanvasLayer/Menu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=367801452]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/icon_max_width = 24
+icon = ExtResource("2_gfjak")
+
+[node name="ButtonLeave" type="Button" parent="CanvasLayer/Menu/PanelContainer/MarginContainer/VBoxContainer" unique_id=196040560]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Leave Game"
+
+[node name="Reticle" type="Panel" parent="CanvasLayer" unique_id=1077284790]
+custom_minimum_size = Vector2(5, 5)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 2.5
+offset_bottom = 2.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gfjak")
+
+[node name="HitMarker" type="Label" parent="CanvasLayer" unique_id=1391413418]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1)
+pivot_offset_ratio = Vector2(0.5, 0)
+text = "X"
+horizontal_alignment = 1
+
+[node name="SoundHit" type="AudioStreamPlayer" parent="." unique_id=625036051]
+unique_name_in_owner = true
+stream = ExtResource("3_524rm")
+
+[node name="SoundPing" type="AudioStreamPlayer" parent="." unique_id=1437128364]
+unique_name_in_owner = true
+stream = ExtResource("4_tpg5x")
