@@ -320,12 +320,11 @@ static func get_sdp_from_ice_candidate_data(p_data: Dictionary) -> String:
 
 func _process(delta: float):
 	socket.poll() # push error when 502 bad gateway, doesn't block anything
-	
+
 	var old_state := state
 	state = socket.get_ready_state()
 	if state != old_state:
 		state_changed.emit()
-	
 	
 	if WebSocketPeer.STATE_CONNECTING == state:
 		connecting_time += delta

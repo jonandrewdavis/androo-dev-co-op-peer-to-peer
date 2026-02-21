@@ -66,23 +66,24 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Androo Game"
 
-[node name="Label2" type="Label" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=1268439946]
+[node name="LabelSessionid" type="Label" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=390504241]
 layout_mode = 2
-text = "Session:"
+text = "Session ID:"
 
-[node name="LineEditSession" type="LineEdit" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=182981783]
+[node name="LineEditSession" type="LineEdit" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=382891492]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=80620478]
+[node name="LabelUsername" type="Label" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=1449943180]
 layout_mode = 2
 text = "Username:"
 
-[node name="LineEditUsername" type="LineEdit" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=1462638468]
+[node name="LineEditUsername" type="LineEdit" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=998737583]
 unique_name_in_owner = true
 layout_mode = 2
+max_length = 12
 
-[node name="HSeparator2" type="HSeparator" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=1396105307]
+[node name="HSeparator" type="HSeparator" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=814587652]
 layout_mode = 2
 theme_override_constants/separation = 24
 
@@ -96,11 +97,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
 
-[node name="HSeparator" type="HSeparator" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=804427624]
+[node name="HSeparator2" type="HSeparator" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=1704946178]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="ButtonCreateTube" type="Button" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=90400818]
+[node name="ButtonCreateTube" type="Button" parent="Control/Center/MarginContainer/HBoxContainer/TubeMenu" unique_id=1800931519]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/icon_max_width = 24

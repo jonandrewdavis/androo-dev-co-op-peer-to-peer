@@ -80,7 +80,6 @@ func clean_up_signals():
 	multiplayer.peer_disconnected.disconnect(remove_player)
 	multiplayer.connected_to_server.disconnect(on_connected_to_server)
 
-
 func _exit_tree() -> void:
 	if tube_enabled:
 		tube_client.leave_session()

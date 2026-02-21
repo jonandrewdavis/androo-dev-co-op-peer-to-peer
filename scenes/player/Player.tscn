@@ -65,7 +65,7 @@ billboard = 2
 fixed_size = true
 text = "Peer ID"
 font_size = 24
-outline_size = 8
+outline_size = 6
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1190293794]
 unique_name_in_owner = true
