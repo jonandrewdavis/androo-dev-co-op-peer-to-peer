@@ -21,6 +21,10 @@ Network="*uid://bhyh5d2so8tve"
 TileRunInstancesGlobal="*uid://b6fg6pu2bfi14"
 Global="*uid://d1r3eqtrbojy0"
 
+[display]
+
+window/size/always_on_top=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/tile-run-instances/plugin.cfg", "res://addons/tube/plugin.cfg")
