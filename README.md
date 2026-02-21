@@ -1,4 +1,4 @@
-# androo-dev-co-op-multiplayer
+# AndrooDev Friendslop Co-Op Tutorial PART 2
 
 The complete tutorial project from the [Godot Multiplayer Friendslop Co-Op Tutorial Part 2 on YouTube](https://www.youtube.com/watch?v=wgIqB6JNcro). Uses WebRTC via the Tube https://github.com/koopmyers/tube to make it easy to make a true peer-to-peer and play with your friends
 
@@ -6,7 +6,7 @@ The complete tutorial project from the [Godot Multiplayer Friendslop Co-Op Tutor
 | :----------------------------: | :--------------------------------: |
 | https://www.twitch.tv/andoodev | https://www.youtube.com/@AndrooDev |
 
-<img src="assets/docs/template_preview_1.png" width="500">
+<img src="assets/docs/androodev-finished-part-2.png" width="500">
 
 ## Local Development:
 
