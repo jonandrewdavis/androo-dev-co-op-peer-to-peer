@@ -1,6 +1,6 @@
 # androo-dev-co-op-multiplayer
 
-A complete template and tutorial from [AndrooDev on YouTube](https://www.youtube.com/watch?v=NvG08tA06xQ). Uses client authority to make it easy to start a PVE or Co-Op multiplayer game from scratch.
+The complete tutorial project from the [Godot Multiplayer Friendslop Co-Op Tutorial Part 2 on YouTube](https://www.youtube.com/watch?v=wgIqB6JNcro). Uses WebRTC via the Tube https://github.com/koopmyers/tube to make it easy to make a true peer-to-peer and play with your friends
 
 |             Twitch             |              Youtube               |
 | :----------------------------: | :--------------------------------: |
@@ -19,10 +19,9 @@ A complete template and tutorial from [AndrooDev on YouTube](https://www.youtube
   - Game Embed Mode: Disabled
 - Select Debug -> Select Customize Run Instances
   - Set 3 instances
-  - Add feature `server` to the first instance
 - Play
   - Launched windows should tile
-- You should see the server start and 2 clients
+- Create session
 - Join on client
 - Join on client
 
@@ -32,8 +31,7 @@ A complete template and tutorial from [AndrooDev on YouTube](https://www.youtube
 
 ## Controls
 
+- Tab to open menu
 - WASD to Move
 - Mouse to look
 - Left Click to shoot ball
-- Tab to open menu
-# androo-dev-co-op-peer-to-peer
