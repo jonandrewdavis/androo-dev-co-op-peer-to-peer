@@ -2,7 +2,7 @@
 
 The complete tutorial project from the [Godot Multiplayer Friendslop Co-Op Tutorial Part 2 on YouTube](https://www.youtube.com/watch?v=wgIqB6JNcro). Uses WebRTC via the Tube https://github.com/koopmyers/tube to make it easy to make a true peer-to-peer and play with your friends. See [Part 1 on YouTube here](https://youtu.be/NvG08tA06xQ) to build up your multiplayer fundamentals like syncing and spawning.
 
-|             Twitch             |              Youtube               |                      Play now on Itch                       |
+|             Twitch             |              Youtube               |            Play now on Itch (Send to a friend!)             |
 | :----------------------------: | :--------------------------------: | :---------------------------------------------------------: |
 | https://www.twitch.tv/andoodev | https://www.youtube.com/@AndrooDev | https://androodev.itch.io/androodev-friendslop-co-op-sample |
 
@@ -23,13 +23,9 @@ The complete tutorial project from the [Godot Multiplayer Friendslop Co-Op Tutor
   - Set 3 instances
 - Play
   - Launched windows should tile
-- Create session
-- Join on client
-- Join on client
-
-|         Game Embed Mode: Disabled         |               Customize Run Instances               |
-| :---------------------------------------: | :-------------------------------------------------: |
-| ![](assets/docs//template_settings_2.png) | ![](assets/docs/customize-run-instances-part-2.png) |
+- Create session (Copies Session ID)
+- Join on client (Paste session)
+- Join on client (Paste session)
 
 ## Controls
 
@@ -37,3 +33,7 @@ The complete tutorial project from the [Godot Multiplayer Friendslop Co-Op Tutor
 - WASD to Move
 - Mouse to look
 - Left Click to shoot ball
+
+|         Game Embed Mode: Disabled         |               Customize Run Instances               |
+| :---------------------------------------: | :-------------------------------------------------: |
+| ![](assets/docs//template_settings_2.png) | ![](assets/docs/customize-run-instances-part-2.png) |
