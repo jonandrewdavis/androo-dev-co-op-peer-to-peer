@@ -5,7 +5,7 @@ var username := ''
 var forest: Node3D
 var spawn_container: Node3D
 
-const BALL = preload("uid://c1yny3sauy8yu")
+var BALL = load("uid://c1yny3sauy8yu")
 
 @rpc("any_peer", "call_local")
 func shoot_ball(pos, dir, force):
@@ -14,5 +14,3 @@ func shoot_ball(pos, dir, force):
 	new_ball.position = pos + Vector3(0.0, 1.5, 0.0) + (dir * 1.2)
 	spawn_container.add_child(new_ball, true)
 	new_ball.apply_central_impulse(dir * force)
-	
-	
