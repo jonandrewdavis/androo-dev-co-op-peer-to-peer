@@ -69,7 +69,7 @@ func on_peer_selected(item_index):
 	all_peers.show()
 	Network.set_peer(item_index)
 	match item_index:
-		Network.PEER.EnetLocal:
+		Network.PEERS.EnetLocal:
 			label_sessionid.hide()
 			line_edit_session.text = Network.IP_ADDRESS
 		Network.PEERS.EnetRelay:
