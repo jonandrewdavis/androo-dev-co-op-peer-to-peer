@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bqta7emfadpxj" path="res://scenes/player/player.gd" id="1_wr5hl"]
 [ext_resource type="Texture2D" uid="uid://pxj3b3e28fg3" path="res://addons/tube/inspector/icons/clipboard_icon.tres" id="2_gfjak"]
+[ext_resource type="PackedScene" uid="uid://3twuvdlmdi7j" path="res://assets/animations/AnimationLibrary_Godot_Standard.glb" id="2_npwbq"]
 [ext_resource type="AudioStream" uid="uid://cdov6nnydfvny" path="res://assets/sound/click.mp3" id="3_524rm"]
 [ext_resource type="AudioStream" uid="uid://d0xrt28ytpro" path="res://assets/sound/ping.mp3" id="4_tpg5x"]
 [ext_resource type="PackedScene" uid="uid://lm4alclh6bt3" path="res://scenes/player/controls.tscn" id="5_tpg5x"]
@@ -26,6 +27,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("Nameplate:text")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("Head/AnimationLibrary_Godot_Standard/AnimationPlayer:current_animation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfjak"]
 bg_color = Color(1, 1, 1, 1)
@@ -44,6 +48,7 @@ shape = SubResource("CapsuleShape3D_o8nba")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2062670380]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_wr5hl")
 
 [node name="Head" type="Node3D" parent="." unique_id=2071305103]
@@ -51,13 +56,17 @@ unique_name_in_owner = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head" unique_id=659649992]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.4010596, -0.38197786)
+visible = false
 mesh = SubResource("CylinderMesh_gfjak")
+
+[node name="AnimationLibrary_Godot_Standard" parent="Head" unique_id=1312872203 instance=ExtResource("2_npwbq")]
+unique_name_in_owner = true
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=2014816838]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Root Scene" parent="Head/Camera3D" unique_id=1725432039 instance=ExtResource("6_c3xxp")]
+[node name="Bow" parent="Head/Camera3D" unique_id=1725432039 instance=ExtResource("6_c3xxp")]
 transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 0, -0.3689747, -0.6928707)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=447432846]
@@ -168,3 +177,5 @@ stream = ExtResource("3_524rm")
 [node name="SoundPing" type="AudioStreamPlayer" parent="." unique_id=1437128364]
 unique_name_in_owner = true
 stream = ExtResource("4_tpg5x")
+
+[editable path="Head/AnimationLibrary_Godot_Standard"]

@@ -23,6 +23,10 @@ const JUMP_VELOCITY = 4.5
 @onready var sound_hit: AudioStreamPlayer = %SoundHit
 @onready var sound_ping: AudioStreamPlayer = %SoundPing
 
+@onready var animation_library_godot_standard: Node3D = %AnimationLibrary_Godot_Standard
+@onready var animation_player: AnimationPlayer = $Head/AnimationLibrary_Godot_Standard/AnimationPlayer
+
+
 var immobile := false
 
 func _enter_tree() -> void:
@@ -33,6 +37,7 @@ func _ready():
 	add_to_group("Players")
 	nameplate.text = name
 	hit_marker.hide()
+	animation_player.playback_default_blend_time = 0.2
 	
 	if not is_multiplayer_authority():
 		set_process(false)
@@ -41,7 +46,7 @@ func _ready():
 		return
 	
 	if Global.username: nameplate.text = Global.username
-	
+	animation_library_godot_standard.hide()
 	label_session.text = Network.tube_client.session_id
 	camera_3d.current = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -87,6 +92,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		animation_player.play("Jump")
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -103,8 +109,15 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
+	if velocity.y == 0.0:
+		if direction.x != 0.0 or direction.x != 0.0:
+			animation_player.play("Walk")
+		else:
+			animation_player.play("Idle")
+
 	move_and_slide()
-	
+
+
 func shoot():
 	var force = 100
 	var pos = global_position
