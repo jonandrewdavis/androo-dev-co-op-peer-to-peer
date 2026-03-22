@@ -73,7 +73,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
 
 [node name="Weapon" parent="Head/Camera3D/ArmsRoot" index="2" unique_id=204858693]
-transform = Transform3D(0.48758504, 0.02598531, -0.8726882, 0.8656598, 0.11561026, 0.4871004, 0.11354918, -0.9929546, 0.033875395, 0.33617833, -0.52601266, -1.1528939)
+transform = Transform3D(0.48758504, 0.02598531, -0.8726882, 0.8656598, 0.11561026, 0.4871004, 0.11354918, -0.9929546, 0.033875395, 0.044629604, -0.2631794, -0.75293124)
 
 [node name="HurtBox" type="Area3D" parent="Head/Camera3D/ArmsRoot/Weapon" index="0" unique_id=98691318]
 unique_name_in_owner = true

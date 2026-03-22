@@ -87,11 +87,14 @@ func _process(_delta: float) -> void:
 	#if Input.is_action_just_pressed('shoot'):
 		#shoot()	
 
-	if Input.is_action_just_pressed('swing'):
+	if Input.is_action_just_pressed('attack1'):
 		attack(1)
 	
-	if Input.is_action_just_pressed('bonk'):
+	if Input.is_action_just_pressed('attack2'):
 		attack(2)
+
+	if Input.is_action_just_pressed('interact'):
+		hold()
 
 func open_menu(current_visibility: bool):
 	menu.visible = !current_visibility
@@ -164,15 +167,25 @@ func attack(version: int):
 		elif version == 2:
 			hurt_box.current_damage = 50
 
-		sensitivity = sensitivity * 0.4
+		sensitivity = sensitivity * 0.25
 		hurt_box.bodies_hit.clear()
 		can_attack = false
 		animation_player.play("Sword_Attack")
 		sword_animation_player.play("arm_model_animations/swing_0" + str(version))
 		await sword_animation_player.animation_finished
 		sword_animation_player.play("arm_model_animations/idle")
-		can_attack = true
 		sensitivity = DEFAULT_SENS
+		can_attack = true
+
+func hold():
+	if can_attack == false:
+		sword_animation_player.play("arm_model_animations/idle")
+		await get_tree().create_timer(0.3).timeout
+		can_attack = true
+	else:
+		can_attack = false
+		sword_animation_player.play("arm_model_animations/hold")
+	
 
 func get_shoot_direction():
 	var viewport_rect = get_viewport().get_visible_rect().size
