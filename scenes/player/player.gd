@@ -2,7 +2,8 @@ extends CharacterBody3D
 
 class_name Player
 
-@export var sensitivity: float = 0.002
+const DEFAULT_SENS =  0.002
+@export var sensitivity: float = DEFAULT_SENS
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -16,12 +17,17 @@ const JUMP_VELOCITY = 4.5
 @onready var label_session: Label = %LabelSession
 @onready var button_copy_session: Button = %ButtonCopySession
 @onready var controls: VBoxContainer = %Controls
-
-@onready var canvas_layer: CanvasLayer = %CanvasLayer
 @onready var hit_marker: Label = %HitMarker
+@onready var player_ui: CanvasLayer = %PlayerUi
 
 @onready var sound_hit: AudioStreamPlayer = %SoundHit
 @onready var sound_ping: AudioStreamPlayer = %SoundPing
+
+@onready var animation_library_godot_standard: Node3D = %AnimationLibrary_Godot_Standard
+@onready var animation_player: AnimationPlayer = $Head/AnimationLibrary_Godot_Standard/AnimationPlayer
+
+@onready var arms_root: Node3D = %ArmsRoot
+@export var sword_animation_player: AnimationPlayer
 
 var immobile := false
 
@@ -29,26 +35,39 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(int(name))
 
 func _ready():
-	menu.hide()
 	add_to_group("Players")
+	player_ui.hide()	
 	nameplate.text = name
-	hit_marker.hide()
-	
+	animation_player.playback_default_blend_time = 0.2
+	sword_animation_player.playback_default_blend_time = 0.2
+	sword_animation_player.speed_scale = 0.7
+	arms_root.hide()
+
 	if not is_multiplayer_authority():
 		set_process(false)
 		set_physics_process(false)
-		canvas_layer.hide()
 		return
 	
-	if Global.username: nameplate.text = Global.username
-	
-	label_session.text = Network.tube_client.session_id
+	ready_client_visuals()
+	ready_client_menu()
+
+func ready_client_visuals():
+	arms_root.show()
+	animation_library_godot_standard.hide()
 	camera_3d.current = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if Global.username: 
+		nameplate.text = Global.username
+
+func ready_client_menu():
+	player_ui.show()
+	menu.hide()
+	hit_marker.hide()
+	label_session.text = Network.tube_client.session_id
 	button_leave.pressed.connect(func(): Network.leave_server())
 	button_copy_session.pressed.connect(func(): DisplayServer.clipboard_set(Network.tube_client.session_id))
 	DisplayServer.clipboard_set(Network.tube_client.session_id)
-
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority() or immobile:
 		return
@@ -65,8 +84,17 @@ func _process(_delta: float) -> void:
 	if immobile:
 		return
 
-	if Input.is_action_just_pressed('shoot'):
-		shoot()	
+	#if Input.is_action_just_pressed('shoot'):
+		#shoot()	
+
+	if Input.is_action_just_pressed('attack1'):
+		attack(1)
+	
+	if Input.is_action_just_pressed('attack2'):
+		attack(2)
+
+	if Input.is_action_just_pressed('interact'):
+		hold()
 
 func open_menu(current_visibility: bool):
 	menu.visible = !current_visibility
@@ -103,14 +131,62 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
+	handle_animation(direction)
 	move_and_slide()
-	
+
+func handle_animation(direction: Vector3):
+	if animation_player.current_animation == "Sword_Attack":
+		return
+
+	if velocity.y == 0.0:
+		if direction.x != 0.0 or direction.x != 0.0:
+			animation_player.play("Jog_Fwd")
+		else:
+			animation_player.play("Idle")
+	else:
+		animation_player.play("Jump")
+
+
+var can_shoot := true
+
 func shoot():
 	var force = 100
 	var pos = global_position
 	var shoot_dir = get_shoot_direction()
 	Global.shoot_ball.rpc_id(1, pos, shoot_dir, force)
+
+var can_attack := true
+
+@onready var hurt_box: HurtBox = %HurtBox
+
+# TODO: Combine
+func attack(version: int):
+	if can_attack:
+		if version == 1:
+			hurt_box.current_damage = 25
+		elif version == 2:
+			hurt_box.current_damage = 50
+
+		sensitivity = sensitivity * 0.25
+		hurt_box.bodies_hit.clear()
+		can_attack = false
+		animation_player.play("Sword_Attack")
+		sword_animation_player.play("arm_model_animations/swing_0" + str(version))
+		await sword_animation_player.animation_finished
+		sword_animation_player.play("arm_model_animations/idle")
+		sensitivity = DEFAULT_SENS
+		can_attack = true
+
+func hold():
+	if can_attack == false:
+		sword_animation_player.play("arm_model_animations/idle")
+		await get_tree().create_timer(0.3).timeout
+		can_attack = true
+	else:
+		can_attack = false
+		sword_animation_player.play("arm_model_animations/hold")
 	
+
 func get_shoot_direction():
 	var viewport_rect = get_viewport().get_visible_rect().size
 	var raycast_start = camera_3d.project_ray_origin(viewport_rect / 2)
